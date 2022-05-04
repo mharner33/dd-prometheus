@@ -1,0 +1,23 @@
+version: "3.4"
+services:
+  prometheus:
+    build: ./prometheus
+    ports:
+      - '9090:9090'
+  metrics:
+    build: ./metrics
+    ports:
+      - '8088:8088'
+    labels:
+      com.datadoghq.ad.check_names: '["openmetrics"]'
+      com.datadoghq.ad.init_configs: '[{}]'
+      com.datadoghq.ad.instances: |
+        [
+           {
+             "openmetrics_endpoint": "http://%%host%%:%%port%%/metrics",
+             "namespace": "otel",
+             "metrics": [
+                {"test_my_counter": "my_counter"}
+              ]
+           }
+        ]
