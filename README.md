@@ -39,7 +39,7 @@ The counter presented will be:
 ```
 test_my_counter
 ```
-##Troubleshooting tips:
+## Troubleshooting tips:
 - Make sure you can access the prometheus site from Datadog agent: `curl -v http://172.18.0.4:8088/metrics`
 - If you can't, check to verify all containers are attached to a common network `docker network inspect <network>`
 - Log into dd-agent (`docker exec -it dd-agent /bin/bash`) and run `agent status` - you should see the openmetrics check running.
