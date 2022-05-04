@@ -33,12 +33,18 @@ docker run -d --cgroupns host \
     gcr.io/datadoghq/agent:latest
 ```
 
-**Note that you may need to attach the Datadog agent to the container created by docker-compose in order to use the %%host%%**
+**Note that you may need to attach the Datadog agent to the network created by docker-compose in order to use the %%host%%**
 
 The counter presented will be:
 ```
 test_my_counter
 ```
+##Troubleshooting tips:
+- Make sure you can access the prometheus site from Datadog agent: `curl -v http://172.18.0.4:8088/metrics`
+- If you can't, check to verify all containers are attached to a common network `docker network inspect <network>`
+- Log into dd-agent (`docker exec -it dd-agent /bin/bash`) and run `agent status` - you should see the openmetrics check running.
+- If you don't see that, ensure the labels are applied to the metrics container with: `docker inspect <container-name>`
+
 
 ## See also
 
